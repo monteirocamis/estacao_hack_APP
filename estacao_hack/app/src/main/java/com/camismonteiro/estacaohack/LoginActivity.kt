@@ -1,5 +1,6 @@
 package com.camismonteiro.estacaohack
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,8 +25,25 @@ class LoginActivity : AppCompatActivity() {
                 edtLoginSenha.error = "Campos obrigatorio!"
                 edtLoginSenha.requestFocus()
             }else{
-                //apresentar msg de erro ao usuario
-                Toast.makeText(this,"email ou senha invalidos", Toast.LENGTH_LONG).show()
+                //acessando o arquivo de preferencias compartilhadas
+                val sharedPrefs = getSharedPreferences("cadastro_$email", Context.MODE_PRIVATE)
+                //recuperando dados no arquivo shared preference
+                val emailPrefs = sharedPrefs.getString("EMAIL", "" ) // se nao achar nda retorna vazio
+                val senhaPrefs = sharedPrefs.getString("SENHA" , "")
+                //verificando o email e senha que o usuarios colocou
+                if (email == emailPrefs && senha == senhaPrefs){
+                    Toast.makeText(this, "usuario logado!", Toast.LENGTH_LONG).show()
+                    //abrindo a main activity
+                    val mIntent = Intent(this, MainActivity::class.java)
+                    //passando informacoes atraves da intent
+                    mIntent.putExtra("INTENT_EMAIL", email)
+                    startActivity(mIntent)
+                    finish()
+                }else{
+                    //apresentar msg de erro ao usuario
+                    Toast.makeText(this, "email ou senha invalidos!",
+                        Toast.LENGTH_LONG).show()
+                }
             }
         }
         //executando o click do botao cadastrar
