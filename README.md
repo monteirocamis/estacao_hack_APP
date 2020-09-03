@@ -3,6 +3,7 @@
 Telas no android studio , feitas durante o curso da Cel Lep Tech de Kotlin.
 
 - Tela MainActivity
--Tela splash
--Tela login
--Tela de cadastro
+-Tela splashActiviry
+-Tela loginActivity
+-Tela cadastroActivity
+- Tela WebActivity
